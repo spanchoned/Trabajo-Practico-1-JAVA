@@ -1,5 +1,6 @@
 package com.informatorio.banco.cliente;
-
+import java.util.HashMap;
+import java.util.Map;
 import com.informatorio.banco.cuenta.Cuenta;
 import com.informatorio.banco.servicio.archivo.ArchivoServicio;
 import com.informatorio.banco.cuenta.CuentaAhorro;
@@ -21,7 +22,16 @@ public class Cliente {
         this.direccion = direccion;
         this.cuentas = new ArrayList<>();
     }
-    
+
+    public Map<String, String> obtenerDatosComoMap() {
+        Map<String, String> datosCliente = new HashMap<>();
+        datosCliente.put("Nombre", this.nombre);
+        datosCliente.put("Dirección", this.direccion);
+        datosCliente.put("Saldo total", String.valueOf(this.consultarSaldoTotal()));
+        return datosCliente;
+    }
+
+
     public String getNumeroUnico() {
         return java.util.UUID.randomUUID().toString();
 

@@ -1,6 +1,7 @@
 package com.informatorio.banco;
 
 import com.informatorio.banco.cliente.Cliente;
+import com.informatorio.banco.servicio.archivo.ExportadorCSV;
 //import com.informatorio.banco.servicio.archivo.ArchivoServicio;
 import com.informatorio.banco.cliente.cuenta;
 import com.informatorio.banco.cuenta.Cuenta;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -69,20 +71,24 @@ public class Main {
                         System.out.println("Retirado con éxito.");
                         
                     }
-            } else if (opcion.equalsIgnoreCase("Exportar CSV")) {
-                char[] csvData = cliente.exportarCuentasCSV().toCharArray();
-                System.out.println("Datos exportados a CSV:\n" + new String(csvData));
+               } else if (opcion.equalsIgnoreCase("Exportar CSV")) {
+                   Map<String, String> datosCliente = cliente.obtenerDatosComoMap();
 
-            } else if (opcion.equalsIgnoreCase("Eliminar Cuenta")) {
-                System.out.print("Ingrese el número de cuenta que desea eliminar: ");
-                String numeroCuentaEliminar = scanner.nextLine();
-                cliente.eliminarCuenta(numeroCuentaEliminar);
-                System.out.println("Cuenta eliminada, gracias por usar la App");
-            }
-            
+                   ExportadorCSV.exportarACSV(datosCliente, "datos_cliente.csv");
+                   System.out.println("Datos exportados a CSV correctamente.");
+
+               } else if (opcion.equalsIgnoreCase("Eliminar Cuenta")) {
+                   System.out.print("Ingrese el número de cuenta que desea eliminar: ");
+                   String numeroCuentaEliminar = scanner.nextLine();
+
+                   cliente.eliminarCuenta(numeroCuentaEliminar);
+                   System.out.println("Cuenta eliminada, gracias por usar la App");
+               }
 
 
-    }
+
+
+           }
         }}}
 
 
