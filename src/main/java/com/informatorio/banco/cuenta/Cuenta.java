@@ -61,3 +61,5 @@ public class Cuenta implements cuenta {
         return titular.getNumeroUnico() + "," + titular.getNombre() + "," + saldo + "," + this.getClass().getSimpleName();
     }
 }
+
+// falta algunas operaciones que operaciones en construcción :S

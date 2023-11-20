@@ -24,7 +24,7 @@ public class CuentaCorriente extends Cuenta {
             return super.retirar(monto);
         } else {
             System.out.println("Sobre giro excedido.");
-            return -1; // Indica que la operación no se pudo realizar
+            return -1;
         }
     }
 }

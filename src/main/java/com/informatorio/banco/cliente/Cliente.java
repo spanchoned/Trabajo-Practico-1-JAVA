@@ -2,9 +2,7 @@ package com.informatorio.banco.cliente;
 import java.util.HashMap;
 import java.util.Map;
 import com.informatorio.banco.cuenta.Cuenta;
-import com.informatorio.banco.servicio.archivo.ArchivoServicio;
 import com.informatorio.banco.cuenta.CuentaAhorro;
-import com.informatorio.banco.cuenta.CuentaCorriente;
 
 import java.util.ArrayList;
 import java.util.List;

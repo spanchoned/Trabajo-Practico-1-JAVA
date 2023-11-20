@@ -2,15 +2,6 @@ package com.informatorio.banco;
 
 import com.informatorio.banco.cliente.Cliente;
 import com.informatorio.banco.servicio.archivo.ExportadorCSV;
-//import com.informatorio.banco.servicio.archivo.ArchivoServicio;
-import com.informatorio.banco.cliente.cuenta;
-import com.informatorio.banco.cuenta.Cuenta;
-import com.informatorio.banco.cuenta.CuentaAhorro;
-import com.informatorio.banco.cuenta.CuentaCorriente;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 import java.util.Map;
 import java.util.Scanner;
@@ -88,10 +79,7 @@ public class Main {
 
 
 
+
            }
         }}}
 
-
-//falta dar un numero de cuenta a cada cuenta creada.
-// eliminar la cuenta seleccionada o ambas.
-//ver logica de exportar CSV
