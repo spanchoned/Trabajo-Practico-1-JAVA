@@ -13,7 +13,6 @@ public class Cliente {
     private List<Cuenta> cuentas;
     private double saldoCuentaAhorro;
     private double saldoCuentaCorriente;
-   // private ArchivoServicio archivoServicio;
 
     public Cliente(String nombre, String direccion) {
         this.nombre = nombre;
@@ -37,6 +36,10 @@ public class Cliente {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public List<Cuenta> getCuentas() {
+        return cuentas;
     }
 
     public String getDireccion(){

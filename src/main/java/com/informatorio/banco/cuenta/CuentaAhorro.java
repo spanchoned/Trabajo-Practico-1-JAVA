@@ -3,28 +3,22 @@ package com.informatorio.banco.cuenta;
 import com.informatorio.banco.cliente.Cliente;
 
 public class CuentaAhorro extends Cuenta {
-    private double tasaInteres;
+    private static final double TASA_INTERES_ANUAL = 0.10; // 10% anual
 
-    public CuentaAhorro(String numero, Cliente titular, double saldoInicial, double tasaInteres) {
+    public CuentaAhorro(String numero, Cliente titular, double saldoInicial) {
         super(numero, titular, saldoInicial);
-        this.tasaInteres = tasaInteres;
     }
 
     public double getTasaInteres() {
-        return tasaInteres;
-    }
-
-    public void setTasaInteres(double tasaInteres) {
-        this.tasaInteres = tasaInteres;
+        return TASA_INTERES_ANUAL;
     }
 
     public double calcularIntereses() {
-        double intereses = getSaldo() * tasaInteres;
+        double intereses = getSaldo() * TASA_INTERES_ANUAL;
         depositar(intereses);
         return intereses;
     }
 
-    // Método para exportar cuenta a CSV
     @Override
     public String exportarCSV() {
         return super.exportarCSV() + "," + this.getClass().getSimpleName();

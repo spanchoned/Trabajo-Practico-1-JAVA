@@ -1,12 +1,8 @@
 package com.informatorio.banco.cuenta;
 
-import java.util.function.ToDoubleFunction;
-
 import com.informatorio.banco.cliente.Cliente;
-import com.informatorio.banco.cliente.cuenta;
 
-public class Cuenta implements cuenta {
-    public static ToDoubleFunction<? super Cuenta> consultarSaldo;
+public class Cuenta implements OperacionesCuenta {
     private String numero;
     private Cliente titular;
     private double saldo;
@@ -17,11 +13,13 @@ public class Cuenta implements cuenta {
         this.saldo = saldoInicial;
     }
 
+    @Override
     public double depositar(double monto) {
         saldo += monto;
         return saldo;
     }
 
+    @Override
     public double retirar(double monto) {
         if (monto <= saldo) {
             saldo -= monto;
@@ -31,12 +29,9 @@ public class Cuenta implements cuenta {
         return saldo;
     }
 
+    @Override
     public double consultarSaldo() {
         return saldo;
-    }
-
-    public void getNumeroCuenta(){
-        
     }
 
     public void mostrarInformacion() {
@@ -61,5 +56,3 @@ public class Cuenta implements cuenta {
         return titular.getNumeroUnico() + "," + titular.getNombre() + "," + saldo + "," + this.getClass().getSimpleName();
     }
 }
-
-// falta algunas operaciones que operaciones en construcción :S
