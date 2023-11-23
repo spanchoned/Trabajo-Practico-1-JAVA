@@ -73,7 +73,6 @@ public class Main {
 
                         System.out.println("Saldo: " + cuenta.getSaldo());
                         System.out.println("-----");
-
                     }
                 } else if (opcion.equalsIgnoreCase("Depositar") || opcion.equalsIgnoreCase("Retirar")) {
                     double montoOperacion = scanner.nextDouble();
@@ -106,3 +105,6 @@ public class Main {
         }
     }
 }
+
+
+//falta pensar en como hacer print de cuenta ahorro + corriente con interes y limite

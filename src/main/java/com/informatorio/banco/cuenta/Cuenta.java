@@ -34,12 +34,6 @@ public class Cuenta implements OperacionesCuenta {
         return saldo;
     }
 
-    public void mostrarInformacion() {
-        System.out.println("Cuenta Número: " + numero);
-        System.out.println("Titular: " + titular.getNombre());
-        System.out.println("Saldo: " + saldo);
-    }
-
     public String getNumero() {
         return numero;
     }
@@ -55,4 +49,21 @@ public class Cuenta implements OperacionesCuenta {
     public String exportarCSV() {
         return titular.getNumeroUnico() + "," + titular.getNombre() + "," + saldo + "," + this.getClass().getSimpleName();
     }
-}
+
+    public boolean realizarOperacionEnCuenta(Cuenta cuenta, double monto) {
+        if (monto >= 0) {
+            cuenta.depositar(monto);
+            System.out.println("Operación realizada con éxito.");
+            return true;
+        } else {
+            double saldoDisponible = cuenta.consultarSaldo();
+            if (saldoDisponible >= Math.abs(monto)) {
+                cuenta.retirar(Math.abs(monto));
+                System.out.println("Operación realizada con éxito.");
+                return true;
+            } else {
+                System.out.println("Saldo insuficiente para realizar la operación.");
+                return false;
+            }
+        }
+    }}
