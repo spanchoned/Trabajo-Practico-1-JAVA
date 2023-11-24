@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class CuentaCorriente extends Cuenta {
     private static final double LIMITE_SOBREGIRO_PORCENTAJE = 0.90;
     private static final double INTERES_SOBREGIRO_PORCENTAJE = 0.50;
-    private static final double INTERES_DIARIO = 0.01;  // Porcentaje de interés diario
+    private static final double INTERES_DIARIO = 0.01;
     private double limiteSobreGiro;
     private double interesGeneradoDia;
     private double interesGeneradoMes;
@@ -65,17 +65,16 @@ public class CuentaCorriente extends Cuenta {
         }
     }
 
+//en desarrollo. :(
 
     public void actualizarInteresesDiarios() {
         interesGeneradoDia = 0;
     }
 
-    // Método para actualizar los intereses generados al inicio de un nuevo mes
     public void actualizarInteresesMensuales() {
         interesGeneradoMes = 0;
     }
 
-    // Método para actualizar los intereses generados al inicio de un nuevo año
     public void actualizarInteresesAnuales() {
         interesGeneradoAnio = 0;
     }

@@ -17,7 +17,7 @@ public class ExportadorCSV {
             }
             writer.append("\n");
 
-            System.out.println("Datos exportados a CSV correctamente.");
+            System.out.println("Datos exportados a CSV de manera ok.");
         } catch (IOException e) {
             System.err.println("Error al exportar a CSV: " + e.getMessage());
         }

@@ -30,7 +30,7 @@ public class Main {
         cliente.mostrarInformacion();
         System.out.println("Saldo total inicial: " + cliente.consultarSaldoTotal());
 
-        System.out.print("\nQué tipo de cuenta desea abrir? Ahorro / Corriente / Ambas: ");
+        System.out.print("\nQué tipo de cuenta deseas abrir? Ahorro / Corriente / Ambas: ");
         String tipoCuenta = scanner.nextLine();
 
         if (tipoCuenta.equalsIgnoreCase("Ahorro") || tipoCuenta.equalsIgnoreCase("Corriente") || tipoCuenta.equalsIgnoreCase("Ambas")) {
@@ -42,7 +42,7 @@ public class Main {
                 CuentaAhorro cuentaAhorro = cliente.abrirCuentaAhorro(montoInicial);
                 banco.registrarCuenta(cliente, cuentaAhorro);
             } else if (tipoCuenta.equalsIgnoreCase("Corriente")) {
-                double montoLimiteSobregiro = cliente.obtenerMontoLimiteSobregiro(); // Debes implementar este método
+                double montoLimiteSobregiro = cliente.obtenerMontoLimiteSobregiro();
                 CuentaCorriente cuentaCorriente = cliente.abrirCuentaCorriente(montoInicial, montoLimiteSobregiro);
                 banco.registrarCuenta(cliente, cuentaCorriente);
             } else {
@@ -54,7 +54,7 @@ public class Main {
             System.out.println("Cuenta/s creada/s con éxito.");
 
             while (true) {
-                System.out.print("\nQué desea hacer? Volver / Ver datos + Depositar o Retirar / Exportar CSV / Eliminar Cuenta / Agregar Intereses: ");
+                System.out.print("\nQué queres hacer? Volver / Ver datos + Depositar o Retirar / Exportar CSV / Eliminar Cuenta / Agregar Intereses: ");
                 String opcion = scanner.nextLine();
 
                 if (opcion.equalsIgnoreCase("Volver")) {

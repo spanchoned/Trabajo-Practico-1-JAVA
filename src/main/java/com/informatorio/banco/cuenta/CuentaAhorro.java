@@ -3,7 +3,7 @@ package com.informatorio.banco.cuenta;
 import com.informatorio.banco.cliente.Cliente;
 
 public class CuentaAhorro extends Cuenta {
-    private static final double TASA_INTERES_ANUAL = 0.10; // 10% anual
+    private static final double TASA_INTERES_ANUAL = 0.10; // un 10% anual
 
     public CuentaAhorro(String numero, Cliente titular, double saldoInicial) {
         super(numero, titular, saldoInicial);
