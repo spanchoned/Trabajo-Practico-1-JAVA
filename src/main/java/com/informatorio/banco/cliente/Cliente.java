@@ -6,6 +6,7 @@ import com.informatorio.banco.cuenta.CuentaCorriente;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,18 @@ public class Cliente {
         datosCliente.put("Dirección", this.direccion);
         datosCliente.put("Saldo total", String.valueOf(this.consultarSaldoTotal()));
         return datosCliente;
+    }
+
+    public CuentaCorriente abrirCuentaCorriente(double montoInicial, double montoLimiteSobregiro) {
+        CuentaCorriente cuentaCorriente = new CuentaCorriente(getNumeroUnico(), this, montoInicial, montoLimiteSobregiro);
+        agregarCuenta(cuentaCorriente);
+        return cuentaCorriente;
+    }
+
+    public double obtenerMontoLimiteSobregiro() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el límite de sobregiro para la cuenta corriente: ");
+        return scanner.nextDouble();
     }
 
     public String getNumeroUnico() {
@@ -83,18 +96,11 @@ public class Cliente {
     public void mostrarInformacion() {
         System.out.println("Nombre: " + nombre);
         System.out.println("Dirección: " + direccion);
-        System.out.println("Cuenta corriente " + saldoCuentaCorriente);
-        System.out.println("Cuenta ahorro " + saldoCuentaAhorro);
+        System.out.println("Cuenta Corriente: " + saldoCuentaCorriente);
+        System.out.println(" Cuenta Ahorro: " + saldoCuentaAhorro);
 
-
-        CuentaAhorro cuentaAhorro = getCuentaAhorro();
-        if (cuentaAhorro != null) {
-            System.out.println("Saldo Cuenta de Ahorro: " + cuentaAhorro.getSaldo());
-        }
-
-        CuentaCorriente cuentaCorriente = getCuentaCorriente();
-        if (cuentaCorriente != null) {
-            System.out.println("Saldo Cuenta Corriente: " + cuentaCorriente.getSaldo());
+        for (Cuenta cuenta : cuentas) {
+            System.out.println("Saldo de la cuenta " + cuenta.getNumero() + ": " + cuenta.consultarSaldo());
         }
     }
 
@@ -124,15 +130,12 @@ public class Cliente {
         return saldoCuentaCorriente;
     }
 
-    public double abrirCuentaAhorro(double montoInicial) {
-        saldoCuentaAhorro = montoInicial;
-        return saldoCuentaAhorro;
+    public CuentaAhorro abrirCuentaAhorro(double montoInicial) {
+        CuentaAhorro cuentaAhorro = new CuentaAhorro(getNumeroUnico(), this, montoInicial);
+        agregarCuenta(cuentaAhorro);
+        return cuentaAhorro;
     }
 
-    public double abrirCuentaCorriente(double montoInicial) {
-        saldoCuentaCorriente = montoInicial;
-        return saldoCuentaCorriente;
-    }
 
     public double consultarSaldoTotal() {
         return cuentas.stream().mapToDouble(Cuenta::getSaldo).sum();
@@ -158,4 +161,15 @@ public class Cliente {
                 .findFirst()
                 .orElse(null);
     }
+
+    public void agregarInteresesCuentaAhorro() {
+        CuentaAhorro cuentaAhorro = getCuentaAhorro();
+        if (cuentaAhorro != null) {
+            cuentaAhorro.agregarIntereses();
+        } else {
+            System.out.println("El cliente no tiene una cuenta de ahorro.");
+        }
+    }
+
 }
+
