@@ -60,6 +60,8 @@ public class Cliente {
     }
 
     public void realizarOperacionEnCuenta(Cuenta cuenta, double monto) {
+        cuenta.realizarOperacionEnCuenta(monto);
+
         if (monto >= 0) {
             cuenta.depositar(monto);
             System.out.println("Depósito realizado con éxito.");
@@ -97,7 +99,7 @@ public class Cliente {
         System.out.println("Nombre: " + nombre);
         System.out.println("Dirección: " + direccion);
         System.out.println("Cuenta Corriente: " + saldoCuentaCorriente);
-        System.out.println(" Cuenta Ahorro: " + saldoCuentaAhorro);
+        System.out.println("Cuenta Ahorro: " + saldoCuentaAhorro);
 
         for (Cuenta cuenta : cuentas) {
             System.out.println("Saldo de la cuenta " + cuenta.getNumero() + ": " + cuenta.consultarSaldo());
@@ -119,6 +121,11 @@ public class Cliente {
                 .findFirst()
                 .orElse(null);
     }
+
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
+    }
+
 
     public double realizarDepositoEnCuenta(double monto) {
         saldoCuentaAhorro += monto;

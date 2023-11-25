@@ -14,9 +14,8 @@ public class CuentaAhorro extends Cuenta {
     }
 
     public void agregarIntereses() {
-        double intereses = getSaldo() * TASA_INTERES_ANUAL;
+        double intereses = getSaldo() * getTasaInteres(); // Suponiendo que tasaInteres es un atributo de la clase
         depositar(intereses);
-        System.out.println("Intereses agregados al saldo con éxito.");
     }
 
     @Override

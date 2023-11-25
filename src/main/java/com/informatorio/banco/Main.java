@@ -26,7 +26,7 @@ public class Main {
         Cliente cliente = new Cliente(nombreCompleto, direccion);
         banco.registrarCliente(cliente);
 
-        System.out.println("\nSu información inicial:");
+        System.out.println("\nSu información:");
         cliente.mostrarInformacion();
         System.out.println("Saldo total inicial: " + cliente.consultarSaldoTotal());
 
@@ -54,64 +54,89 @@ public class Main {
             System.out.println("Cuenta/s creada/s con éxito.");
 
             while (true) {
-                System.out.print("\nQué queres hacer? Volver / Ver datos + Depositar o Retirar / Exportar CSV / Eliminar Cuenta / Agregar Intereses: ");
+                System.out.println("\nQué queres hacer? \n" +
+                        "1. Volver\n" +
+                        "2. Ver datos\n" +
+                        "3. Depositar\n" +
+                        "4. Retirar\n" +
+                        "5. Exportar CSV\n" +
+                        "6. Eliminar Cuenta\n" +
+                        "7. Agregar Intereses\n" +
+                        "Ingrese el número o letra correspondiente a la opción:");
+
                 String opcion = scanner.nextLine();
 
-                if (opcion.equalsIgnoreCase("Volver")) {
-                    break;
-                } else if (opcion.equalsIgnoreCase("Ver datos")) {
-                    System.out.println("\nInformación actualizada del cliente:");
-                    cliente.mostrarInformacion();
+                switch (opcion.toLowerCase()) {
+                    case "1", "volver":
+                        return;
+                    case "2", "ver datos":
+                        System.out.println("\nDetalles de las cuentas:");
+                        System.out.println("---------------------------");
 
-                    System.out.println("\nDetalles de las cuentas:");
+                        for (Cuenta cuenta : banco.getCuentasDeCliente(cliente)) {
+                            System.out.println("Número de cuenta: " + cuenta.getNumero());
+                            System.out.println("Tipo de cuenta: " + cuenta.getClass().getSimpleName());
 
-                    for (Cuenta cuenta : banco.getCuentasDeCliente(cliente)) {
-                        System.out.println("Número de cuenta: " + cuenta.getNumero());
-                        System.out.println("Tipo de cuenta: " + cuenta.getClass().getSimpleName());
+                            switch (cuenta.getClass().getSimpleName()) {
+                                case "CuentaAhorro":
+                                    CuentaAhorro cuentaAhorro = (CuentaAhorro) cuenta;
+                                    System.out.println("Tasa de interés: " + cuentaAhorro.getTasaInteres());
+                                    System.out.println("Descripción de Cuenta de Ahorro: Las cuentas de ahorro pagan intereses a una tasa específica.");
+                                    break;
+                                case "CuentaCorriente":
+                                    CuentaCorriente cuentaCorriente = (CuentaCorriente) cuenta;
+                                    System.out.println("Límite de sobregiro: " + cuentaCorriente.getLimiteSobreGiro());
+                                    System.out.println("Descripción de Cuenta Corriente: Las cuentas corrientes pueden tener un límite de sobregiro y deben manejar retiros que excedan el saldo disponible.");
+                                    break;
+                                default:
+                                    System.out.println("Tipo de cuenta no manejado.");
+                                    break;
+                            }
 
-                        if (cuenta instanceof CuentaAhorro) {
-                            CuentaAhorro cuentaAhorro = (CuentaAhorro) cuenta;
-                            System.out.println("Tasa de interés: " + cuentaAhorro.getTasaInteres());
-                            System.out.println("Descripción de Cuenta de Ahorro: Las cuentas de ahorro pagan intereses a una tasa específica.");
-                        } else if (cuenta instanceof CuentaCorriente) {
-                            CuentaCorriente cuentaCorriente = (CuentaCorriente) cuenta;
-                            System.out.println("Límite de sobregiro: " + cuentaCorriente.getLimiteSobreGiro());
-                            System.out.println("Descripción de Cuenta Corriente: Las cuentas corrientes pueden tener un límite de sobregiro y deben manejar retiros que excedan el saldo disponible.");
+                            System.out.println("Saldo: " + cuenta.consultarSaldo());
+                            System.out.println("---------------------------");
                         }
+                        break;
 
-                        System.out.println("Saldo: " + cuenta.getSaldo());
-                        System.out.println("-----");
-                    }
-
-                } else if (opcion.equalsIgnoreCase("Depositar") || opcion.equalsIgnoreCase("Retirar")) {
-                    System.out.print("Ingrese el monto a " + (opcion.equalsIgnoreCase("Depositar") ? "depositar" : "retirar") + ": ");
-                    double montoOperacion = scanner.nextDouble();
-                    scanner.nextLine();  // Consumir la nueva línea en el búfer del Scanner
-
-                    if (opcion.equalsIgnoreCase("Depositar")) {
-                        banco.realizarDeposito(cliente, montoOperacion);
+                    case "3", "depositar":
+                        System.out.print("Ingrese el monto para depositar: ");
+                        double montoDeposito = scanner.nextDouble();
+                        scanner.nextLine();
+                        banco.realizarDeposito(cliente, montoDeposito);
                         System.out.println("Depositado con éxito.");
-                    } else {
-                        banco.realizarRetiro(cliente, montoOperacion);
+                        break;
+                    case "4", "retirar":
+                        System.out.print("Ingrese el monto para retirar: ");
+                        double montoRetiro = scanner.nextDouble();
+                        scanner.nextLine();
+                        banco.realizarRetiro(cliente, montoRetiro);
                         System.out.println("Retirado con éxito.");
-                    }
-                } else if (opcion.equalsIgnoreCase("Exportar CSV")) {
-                    Map<String, String> datosCliente = cliente.obtenerDatosComoMap();
+                        break;
 
-                    ExportadorCSV.exportarACSV(datosCliente, "datos_cliente.csv");
-                    System.out.println("Datos exportados a CSV correctamente.");
+                    case "5", "exportar csv":
+                        Map<String, String> datosCliente = cliente.obtenerDatosComoMap();
+                        ExportadorCSV.exportarACSV(datosCliente, "datos_cliente.csv");
+                        System.out.println("Datos exportados a CSV correctamente.");
+                        break;
 
-                } else if (opcion.equalsIgnoreCase("Eliminar Cuenta")) {
-                    System.out.print("Ingrese el número de cuenta que desea eliminar: ");
-                    String numeroCuentaEliminar = scanner.nextLine();
+                    case "6", "eliminar cuenta":
+                        System.out.print("Ingrese el número de cuenta que desea eliminar: ");
+                        String numeroCuentaEliminar = scanner.nextLine();
+                        banco.eliminarCuenta(cliente, numeroCuentaEliminar);
+                        System.out.println("Cuenta eliminada, gracias por usar la App");
+                        break;
 
-                    banco.eliminarCuenta(cliente, numeroCuentaEliminar);
-                    System.out.println("Cuenta eliminada, gracias por usar la App");
-                } else if (opcion.equalsIgnoreCase("Agregar Intereses")) {
-                    banco.agregarIntereses(cliente);
-                    System.out.println("Intereses agregados con éxito.");
+                    case "7", "agregar intereses":
+                        banco.agregarIntereses(cliente);
+                        System.out.println("Intereses agregados con éxito.");
+                        break;
+
+                    default:
+                        System.out.println("Opción no válida. Por favor, ingrese un número o letra válido.");
+                        break;
                 }
             }
+
         }
     }
 }

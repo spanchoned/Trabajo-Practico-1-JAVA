@@ -5,7 +5,8 @@ import com.informatorio.banco.cliente.Cliente;
 public class Cuenta implements OperacionesCuenta {
     private String numero;
     private Cliente titular;
-    private double saldo;
+    protected double saldo;
+
 
     public Cuenta(String numero, Cliente titular, double saldoInicial) {
         this.numero = numero;
@@ -19,15 +20,15 @@ public class Cuenta implements OperacionesCuenta {
         return saldo;
     }
 
-    @Override
-    public double retirar(double monto) {
-        if (monto <= saldo) {
+    public boolean retirar(double monto) {
+        if (saldo >= monto) {
             saldo -= monto;
+            return true; // Retiro exitoso
         } else {
-            System.out.println("Saldo insuficiente.");
+            return false; // Fondos insuficientes
         }
-        return saldo;
     }
+
 
     @Override
     public double consultarSaldo() {
@@ -38,32 +39,30 @@ public class Cuenta implements OperacionesCuenta {
         return numero;
     }
 
-    public Cliente getTitular() {
-        return titular;
-    }
-
     public double getSaldo() {
         return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
     }
 
     public String exportarCSV() {
         return titular.getNumeroUnico() + "," + titular.getNombre() + "," + saldo + "," + this.getClass().getSimpleName();
     }
 
-    public boolean realizarOperacionEnCuenta(Cuenta cuenta, double monto) {
+    public void realizarOperacionEnCuenta(double monto) {
         if (monto >= 0) {
-            cuenta.depositar(monto);
+            depositar(monto);
             System.out.println("Operación realizada con éxito.");
-            return true;
         } else {
-            double saldoDisponible = cuenta.consultarSaldo();
+            double saldoDisponible = consultarSaldo();
             if (saldoDisponible >= Math.abs(monto)) {
-                cuenta.retirar(Math.abs(monto));
+                retirar(Math.abs(monto));
                 System.out.println("Operación realizada con éxito.");
-                return true;
             } else {
                 System.out.println("Saldo insuficiente para realizar la operación.");
-                return false;
             }
         }
-    }}
+    }
+}

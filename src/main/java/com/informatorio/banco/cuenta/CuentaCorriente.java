@@ -2,9 +2,8 @@ package com.informatorio.banco.cuenta;
 
 import com.informatorio.banco.cliente.Cliente;
 
-import java.time.LocalDate;
 
-public class CuentaCorriente extends Cuenta {
+public class CuentaCorriente extends Cuenta implements OperacionesCuenta {
     private static final double LIMITE_SOBREGIRO_PORCENTAJE = 0.90;
     private static final double INTERES_SOBREGIRO_PORCENTAJE = 0.50;
     private static final double INTERES_DIARIO = 0.01;
@@ -43,29 +42,20 @@ public class CuentaCorriente extends Cuenta {
         return oportunidadesRetiro;
     }
 
-    @Override
-    public double retirar(double monto) {
-        double saldoDisponible = getSaldo() + limiteSobreGiro;
-
-        if (monto <= saldoDisponible && oportunidadesRetiro > 0) {
-            oportunidadesRetiro--;
-
-            double interesRetiro = monto * INTERES_SOBREGIRO_PORCENTAJE;
-            super.retirar(monto + interesRetiro);
-
-            interesGeneradoDia += interesRetiro;
-            interesGeneradoMes += interesRetiro;
-            interesGeneradoAnio += interesRetiro;
-
-            System.out.println("Retiro con éxito. Se ha aplicado un interés por sobregiro del 0.5%.");
-            return monto;
-        } else {
-            System.out.println("Retiro excede el saldo disponible, límite de sobregiro o no quedan oportunidades.");
-            return -1;
-        }
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
     }
 
-//en desarrollo. :(
+    @Override
+    public boolean retirar(double monto) {
+        if (saldo + limiteSobreGiro >= monto) {
+            // Utiliza el método setSaldo para modificar el saldo
+            setSaldo(saldo - monto);
+            return true; // Retiro exitoso
+        } else {
+            return false; // Fondos insuficientes
+        }
+    }
 
     public void actualizarInteresesDiarios() {
         interesGeneradoDia = 0;
