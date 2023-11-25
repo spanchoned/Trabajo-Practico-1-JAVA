@@ -49,11 +49,10 @@ public class CuentaCorriente extends Cuenta implements OperacionesCuenta {
     @Override
     public boolean retirar(double monto) {
         if (saldo + limiteSobreGiro >= monto) {
-            // Utiliza el método setSaldo para modificar el saldo
             setSaldo(saldo - monto);
-            return true; // Retiro exitoso
+            return true;
         } else {
-            return false; // Fondos insuficientes
+            return false;
         }
     }
 

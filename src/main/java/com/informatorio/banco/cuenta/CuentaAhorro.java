@@ -14,7 +14,7 @@ public class CuentaAhorro extends Cuenta {
     }
 
     public void agregarIntereses() {
-        double intereses = getSaldo() * getTasaInteres(); // Suponiendo que tasaInteres es un atributo de la clase
+        double intereses = getSaldo() * getTasaInteres();
         depositar(intereses);
     }
 

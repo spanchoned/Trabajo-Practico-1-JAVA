@@ -88,8 +88,13 @@ public class Cliente {
     }
 
     public void agregarCuenta(Cuenta cuenta) {
-        cuentas.add(cuenta);
+        boolean cuentaExistente = cuentas.stream()
+                .anyMatch(c -> c.getNumero().equals(cuenta.getNumero()));
+        if (!cuentaExistente) {
+            cuentas.add(cuenta);
+        }
     }
+
 
     public void eliminarCuenta(String numeroCuenta) {
         cuentas.removeIf(cuenta -> cuenta.getNumero().equals(numeroCuenta));

@@ -31,16 +31,17 @@ public class Banco {
     }
 
     public void realizarDeposito(Cliente cliente, double monto) {
-        Set<Cuenta> cuentasActualizadas = new HashSet<>();
+        List<Cuenta> cuentasActualizadas = new ArrayList<>();
 
         for (Cuenta cuenta : cliente.getCuentas()) {
-            cuenta.depositar(monto);
-            System.out.println("Depósito de " + monto + " realizado en la cuenta " + cuenta.getNumero());
-            System.out.println("Nuevo saldo: " + cuenta.consultarSaldo());
-            cuentasActualizadas.add(cuenta);
+            Cuenta cuentaActualizada = new Cuenta(cuenta.getNumero(), cliente, cuenta.consultarSaldo()); // Ajusta el constructor según tus necesidades
+            cuentaActualizada.depositar(monto);
+            System.out.println("Depósito de " + monto + " realizado en la cuenta " + cuentaActualizada.getNumero());
+            System.out.println("Nuevo saldo: " + cuentaActualizada.consultarSaldo());
+            cuentasActualizadas.add(cuentaActualizada);
         }
 
-        cliente.setCuentas(new ArrayList<>(cuentasActualizadas));
+        cliente.setCuentas(cuentasActualizadas);
     }
 
     public void realizarRetiro(Cliente cliente, double monto) {
