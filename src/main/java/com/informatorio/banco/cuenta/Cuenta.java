@@ -23,9 +23,9 @@ public class Cuenta implements OperacionesCuenta {
     public boolean retirar(double monto) {
         if (saldo >= monto) {
             saldo -= monto;
-            return true; // Retiro exitoso
+            return true;
         } else {
-            return false; // Fondos insuficientes
+            return false;
         }
     }
 

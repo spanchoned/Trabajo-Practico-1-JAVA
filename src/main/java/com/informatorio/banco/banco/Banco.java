@@ -34,7 +34,7 @@ public class Banco {
         List<Cuenta> cuentasActualizadas = new ArrayList<>();
 
         for (Cuenta cuenta : cliente.getCuentas()) {
-            Cuenta cuentaActualizada = new Cuenta(cuenta.getNumero(), cliente, cuenta.consultarSaldo()); // Ajusta el constructor según tus necesidades
+            Cuenta cuentaActualizada = new Cuenta(cuenta.getNumero(), cliente, cuenta.consultarSaldo());
             cuentaActualizada.depositar(monto);
             System.out.println("Depósito de " + monto + " realizado en la cuenta " + cuentaActualizada.getNumero());
             System.out.println("Nuevo saldo: " + cuentaActualizada.consultarSaldo());
@@ -86,3 +86,4 @@ public class Banco {
 }
 
 
+//se agrego clase banco

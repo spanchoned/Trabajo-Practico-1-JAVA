@@ -75,22 +75,19 @@ public class Main {
 
                         for (Cuenta cuenta : banco.getCuentasDeCliente(cliente)) {
                             System.out.println("Número de cuenta: " + cuenta.getNumero());
-                            System.out.println("Tipo de cuenta: " + cuenta.getClass().getSimpleName());
 
-                            switch (cuenta.getClass().getSimpleName()) {
-                                case "CuentaAhorro":
-                                    CuentaAhorro cuentaAhorro = (CuentaAhorro) cuenta;
-                                    System.out.println("Tasa de interés: " + cuentaAhorro.getTasaInteres());
-                                    System.out.println("Descripción de Cuenta de Ahorro: Las cuentas de ahorro pagan intereses a una tasa específica.");
-                                    break;
-                                case "CuentaCorriente":
-                                    CuentaCorriente cuentaCorriente = (CuentaCorriente) cuenta;
-                                    System.out.println("Límite de sobregiro: " + cuentaCorriente.getLimiteSobreGiro());
-                                    System.out.println("Descripción de Cuenta Corriente: Las cuentas corrientes pueden tener un límite de sobregiro y deben manejar retiros que excedan el saldo disponible.");
-                                    break;
-                                default:
-                                    System.out.println("Tipo de cuenta no manejado.");
-                                    break;
+                            if (cuenta instanceof CuentaAhorro) {
+                                CuentaAhorro cuentaAhorro = (CuentaAhorro) cuenta;
+                                System.out.println("Tipo: Cuenta de Ahorro");
+                                System.out.println("Tasa de interés: " + cuentaAhorro.getTasaInteres());
+                                System.out.println("Descripción de C/ de Ahorro: Las cuentas de ahorro pagan intereses a una tasa específica.");
+                            } else if (cuenta instanceof CuentaCorriente) {
+                                CuentaCorriente cuentaCorriente = (CuentaCorriente) cuenta;
+                                System.out.println("Tipo: Cuenta Corriente");
+                                System.out.println("Límite de sobregiro: " + cuentaCorriente.getLimiteSobreGiro());
+                                System.out.println("Descripción de C/ Corriente: Las cuentas corrientes pueden tener un límite de sobregiro y deben manejar retiros que excedan el saldo disponible.");
+                            } else {
+                                System.out.println("Tipo de cuenta sin detalles.");
                             }
 
                             System.out.println("Saldo: " + cuenta.consultarSaldo());
@@ -140,4 +137,3 @@ public class Main {
         }
     }
 }
-
