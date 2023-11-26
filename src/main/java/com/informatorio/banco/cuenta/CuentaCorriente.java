@@ -6,7 +6,7 @@ import com.informatorio.banco.cliente.Cliente;
 public class CuentaCorriente extends Cuenta implements OperacionesCuenta {
     private static final double LIMITE_SOBREGIRO_PORCENTAJE = 0.90;
     private static final double INTERES_SOBREGIRO_PORCENTAJE = 0.50;
-    private static final double INTERES_DIARIO = 0.01;
+    private static final double INTERES_DIARIO = 0.20;
     private double limiteSobreGiro;
     private double interesGeneradoDia;
     private double interesGeneradoMes;
@@ -56,17 +56,29 @@ public class CuentaCorriente extends Cuenta implements OperacionesCuenta {
         }
     }
 
+    @Override
+    public void agregarIntereses() {
+        double saldoActual = consultarSaldo();
+        double interesesGenerados = saldoActual * INTERES_DIARIO;
+        depositar(interesesGenerados);
+
+        actualizarInteresesDiarios();
+        actualizarInteresesMensuales();
+        actualizarInteresesAnuales();
+
+        System.out.println("Intereses agregados a la cuenta corriente. Nuevo saldo: " + consultarSaldo());
+    }
+
     public void actualizarInteresesDiarios() {
-        interesGeneradoDia = 0;
+        interesGeneradoDia += consultarSaldo() * INTERES_DIARIO;
     }
 
     public void actualizarInteresesMensuales() {
-        interesGeneradoMes = 0;
+        interesGeneradoMes += interesGeneradoDia;
     }
 
     public void actualizarInteresesAnuales() {
-        interesGeneradoAnio = 0;
-    }
-}
+        interesGeneradoAnio += interesGeneradoMes;
+    }}
 
 //algunas op en construccion :(

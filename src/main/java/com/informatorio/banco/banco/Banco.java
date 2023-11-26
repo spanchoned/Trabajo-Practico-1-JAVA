@@ -3,6 +3,7 @@ package com.informatorio.banco.banco;
 import com.informatorio.banco.cliente.Cliente;
 import com.informatorio.banco.cuenta.Cuenta;
 import com.informatorio.banco.cuenta.CuentaAhorro;
+import com.informatorio.banco.cuenta.OperacionesCuenta;
 
 
 import java.util.ArrayList;
@@ -12,9 +13,13 @@ import java.util.Set;
 
 public class Banco {
     private List<Cliente> clientes;
+    private List<Cuenta> cuentasOrdenadas;
+
 
     public Banco() {
         this.clientes = new ArrayList<>();
+        this.cuentasOrdenadas = new ArrayList<>();
+
     }
 
     public void registrarCliente(Cliente cliente) {
@@ -28,13 +33,20 @@ public class Banco {
 
     public void registrarCuenta(Cliente cliente, Cuenta cuenta) {
         cliente.agregarCuenta(cuenta);
+        cuentasOrdenadas.add(cuenta);
     }
+
 
     public void realizarDeposito(Cliente cliente, double monto) {
         List<Cuenta> cuentasActualizadas = new ArrayList<>();
 
         for (Cuenta cuenta : cliente.getCuentas()) {
-            Cuenta cuentaActualizada = new Cuenta(cuenta.getNumero(), cliente, cuenta.consultarSaldo());
+            Cuenta cuentaActualizada = new Cuenta(cuenta.getNumero(), cliente, cuenta.consultarSaldo()) {
+                @Override
+                public void agregarIntereses() {
+
+                }
+            };
             cuentaActualizada.depositar(monto);
             System.out.println("Depósito de " + monto + " realizado en la cuenta " + cuentaActualizada.getNumero());
             System.out.println("Nuevo saldo: " + cuentaActualizada.consultarSaldo());
@@ -65,6 +77,7 @@ public class Banco {
         for (Cuenta cuenta : cliente.getCuentas()) {
             if (cuenta.getNumero().equals(numeroCuenta)) {
                 cliente.eliminarCuenta(cuenta.getNumero());
+                cuentasOrdenadas.remove(cuenta);
                 System.out.println("Cuenta eliminada con éxito.");
                 return;
             }
@@ -75,10 +88,9 @@ public class Banco {
 
     public void agregarIntereses(Cliente cliente) {
         for (Cuenta cuenta : cliente.getCuentas()) {
-            if (cuenta instanceof CuentaAhorro) {
-                CuentaAhorro cuentaAhorro = (CuentaAhorro) cuenta;
-                cuentaAhorro.agregarIntereses();
-                System.out.println("Intereses agregados a la cuenta de ahorro. Nuevo saldo: " + cuentaAhorro.getSaldo());
+            if (cuenta instanceof OperacionesCuenta) {
+                OperacionesCuenta cuentaConIntereses = (OperacionesCuenta) cuenta;
+                cuentaConIntereses.agregarIntereses();
             }
         }
     }
@@ -86,4 +98,4 @@ public class Banco {
 }
 
 
-//se agrego clase banco
+//se agrego clase banco por necesidad

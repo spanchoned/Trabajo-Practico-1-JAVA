@@ -2,11 +2,12 @@ package com.informatorio.banco.cuenta;
 
 import com.informatorio.banco.cliente.Cliente;
 
-public class Cuenta implements OperacionesCuenta {
+public abstract class Cuenta implements OperacionesCuenta {
     private String numero;
     private Cliente titular;
     protected double saldo;
 
+    public abstract void agregarIntereses();
 
     public Cuenta(String numero, Cliente titular, double saldoInicial) {
         this.numero = numero;

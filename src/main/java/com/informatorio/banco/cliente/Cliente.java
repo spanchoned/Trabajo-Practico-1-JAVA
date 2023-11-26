@@ -16,11 +16,14 @@ public class Cliente {
     private List<Cuenta> cuentas;
     private double saldoCuentaAhorro;
     private double saldoCuentaCorriente;
+    private List<Cuenta> cuentasOrdenadas;
+
 
     public Cliente(String nombre, String direccion) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.cuentas = new ArrayList<>();
+        this.cuentasOrdenadas = new ArrayList<>();
     }
 
     public Map<String, String> obtenerDatosComoMap() {
@@ -92,9 +95,9 @@ public class Cliente {
                 .anyMatch(c -> c.getNumero().equals(cuenta.getNumero()));
         if (!cuentaExistente) {
             cuentas.add(cuenta);
+            cuentasOrdenadas.add(cuenta);
         }
     }
-
 
     public void eliminarCuenta(String numeroCuenta) {
         cuentas.removeIf(cuenta -> cuenta.getNumero().equals(numeroCuenta));
@@ -147,7 +150,6 @@ public class Cliente {
         agregarCuenta(cuentaAhorro);
         return cuentaAhorro;
     }
-
 
     public double consultarSaldoTotal() {
         return cuentas.stream().mapToDouble(Cuenta::getSaldo).sum();
