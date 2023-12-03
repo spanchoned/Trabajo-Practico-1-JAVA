@@ -77,12 +77,13 @@
     </pluginManagement>
       <plugins>
           <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-compiler-plugin</artifactId>
-              <configuration>
-                  <source>14</source>
-                  <target>14</target>
-              </configuration>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version> <!-- Utiliza la versión más reciente disponible -->
+            <configuration>
+              <source>14</source>
+              <target>14</target>
+            </configuration>
           </plugin>
       </plugins>
   </build>
