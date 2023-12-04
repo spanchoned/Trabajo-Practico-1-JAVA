@@ -20,7 +20,7 @@ public class ClienteServicioImpl implements ClienteServicio {
     }
 
     public void ofrecerServicios() {
-        System.out.println("Bienvenido a nuestro banco. Ofrecemos servicios como abrir cuentas y gestionar clientes.");
+        System.out.println("Bienvenido a nuestro banco. Ofrecemos servicios como abrir cuentas y gestionar diferentes operaciones.");
     }
 
 

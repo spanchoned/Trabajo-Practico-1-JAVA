@@ -1,47 +1,58 @@
 <mxfile host="65bd71144e">
     <diagram id="w1dFJXO0w0qeNcDH0dnG" name="Página-1">
-        <mxGraphModel dx="1202" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1171" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="7" value="Cliente" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="40" y="120" width="200" height="100" as="geometry"/>
+                <mxCell id="2Z3g-nSCC2vV_mLMmNC7-37" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="7">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="380" y="220" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="8" value="ATRIBUTOS&lt;br&gt;Nombre: String&lt;br&gt;Dirección: String&lt;br&gt;Cuentas: List" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="7">
-                    <mxGeometry x="40" y="25" width="110" height="70" as="geometry"/>
+                <mxCell id="7" value="Cliente" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="120" width="200" height="200" as="geometry"/>
                 </mxCell>
-                <mxCell id="9" value="Cuenta" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="1">
-                    <mxGeometry x="360" y="120" width="200" height="200" as="geometry"/>
+                <mxCell id="8" value="&lt;br&gt;Nombre: String&lt;br&gt;Dirección: String&lt;br&gt;Cuentas &amp;lt;List&amp;gt;&lt;br&gt;&lt;br&gt;getters &amp;amp; setters&lt;br&gt;abrir cuenta&lt;br&gt;consultar cuenta&lt;br&gt;eliminar cuenta&amp;nbsp;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="7" vertex="1">
+                    <mxGeometry x="40" y="20" width="110" height="140" as="geometry"/>
                 </mxCell>
-                <mxCell id="10" value="ATRIBUTOS&lt;br&gt;Numero: String / int&lt;br&gt;Titular: Cliente&lt;br&gt;Saldo: Double&lt;br&gt;&lt;br&gt;METODOS&lt;br&gt;Depositar: double&lt;br&gt;Retirar: double&lt;br&gt;ConsultarSaldo: double&amp;nbsp;&lt;br&gt;&amp;nbsp;&lt;br&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="9">
-                    <mxGeometry x="40" y="31" width="150" height="160" as="geometry"/>
+                <mxCell id="36" style="edgeStyle=none;html=1;" edge="1" parent="1" source="25">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="486" y="360" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="11" value="Cuenta de Ahorro" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="1">
-                    <mxGeometry x="563" y="340" width="200" height="100" as="geometry"/>
+                <mxCell id="25" value="Bnaco" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="386" y="124" width="200" height="146" as="geometry"/>
                 </mxCell>
-                <mxCell id="12" value="tasaInteres: Double&lt;br&gt;calcularIntereses: double" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="11">
-                    <mxGeometry x="40" y="40" width="160" height="40" as="geometry"/>
+                <mxCell id="26" value="&lt;br&gt;Clientes &amp;lt;List&amp;gt;&lt;br&gt;Ordenar cuentas &amp;lt;List&amp;gt;&lt;br&gt;Servicios&lt;br&gt;getters &amp;amp; setters&lt;br&gt;&amp;nbsp;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="25">
+                    <mxGeometry x="34" y="16" width="150" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="15" value="Cuenta Corriente" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="148" y="341" width="210" height="100" as="geometry"/>
+                <mxCell id="2Z3g-nSCC2vV_mLMmNC7-38" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="27">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="650" y="430" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="16" value="LimiteSobreGiro:&amp;nbsp; double&lt;br&gt;gestionarSobreGiro: souble" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="15">
-                    <mxGeometry x="40" y="37" width="170" height="40" as="geometry"/>
+                <mxCell id="2Z3g-nSCC2vV_mLMmNC7-39" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="27">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="650" y="560" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
-                <mxCell id="18" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
-                    <mxGeometry x="250" y="160" width="100" height="20" as="geometry"/>
+                <mxCell id="27" value="Cuentas Bancaria" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="386" y="370" width="200" height="175" as="geometry"/>
                 </mxCell>
-                <mxCell id="19" value="&lt;span style=&quot;color: rgb(209, 213, 219); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &amp;quot;Segoe UI&amp;quot;, Roboto, Ubuntu, Cantarell, &amp;quot;Noto Sans&amp;quot;, sans-serif, &amp;quot;Helvetica Neue&amp;quot;, Arial, &amp;quot;Apple Color Emoji&amp;quot;, &amp;quot;Segoe UI Emoji&amp;quot;, &amp;quot;Segoe UI Symbol&amp;quot;, &amp;quot;Noto Color Emoji&amp;quot;; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(68, 70, 84); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;(1:N)&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="290" y="140" width="60" height="40" as="geometry"/>
+                <mxCell id="28" value="&lt;br&gt;Numero de cuenta: String&amp;nbsp;&lt;br&gt;Titular: Cliente&lt;br&gt;Saldo: Double&lt;br&gt;&lt;br&gt;Getters &amp;amp; Setters&lt;br&gt;Depositar:Double&lt;br&gt;Retirar: Double&lt;br&gt;Consultar Saldo: Double&lt;br&gt;&amp;nbsp;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="27">
+                    <mxGeometry x="28" y="15" width="160" height="160" as="geometry"/>
                 </mxCell>
-                <mxCell id="23" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
-                    <mxGeometry x="371" y="370" width="179" height="20" as="geometry"/>
+                <mxCell id="29" value="Cuenta Ahorro" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="660" y="360" width="200" height="110" as="geometry"/>
                 </mxCell>
-                <mxCell id="24" value="heredan de Cuenta" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="385" y="365" width="130" height="30" as="geometry"/>
+                <mxCell id="30" value="&lt;br&gt;Tasa de interes: Double&lt;br&gt;getters &amp;amp; setters&lt;br&gt;Calcular intereses: Double&lt;br&gt;&amp;nbsp;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="29">
+                    <mxGeometry x="30" y="20" width="160" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="25" value="&lt;span style=&quot;background-color: initial;&quot;&gt;Cliente: representa a los clientes del banco, con detalles personales y una lista de cuentas.&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Cuenta: cuenta bancaria, con un numero unico, saldo y titular.&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;C/ de Ahorro: tipo de cuenta, con intereses, hereda de la clase Cuenta.&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;C/ Corriente: tipo de cuenta, con que puede tener un limite de sobre giro, hereda de Cuenta.&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Relación cuenta/cliente: un cliente puede tener muchas cuentas, pero cada cuenta solo titene un titular.&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="40" y="550" width="570" height="140" as="geometry"/>
+                <mxCell id="31" value="Cuenta Corriente" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="660" y="512" width="210" height="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="&lt;br&gt;Limite: Double&lt;br&gt;getters &amp;amp; setters&lt;br&gt;&amp;nbsp;Obtener Monto Limite: Double" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="31">
+                    <mxGeometry x="20" y="18" width="190" height="70" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

@@ -3,50 +3,90 @@ package com.informatorio.banco.dominio.dominios.cuentaAhorro;
 import com.informatorio.banco.dominio.dominios.cliente.Cliente;
 import com.informatorio.banco.dominio.dominios.cuentaBancaria.CuentaBancaria;
 
-import java.util.List;
-
 public class CuentaAhorro extends CuentaBancaria {
-    private double tasaInteres;
+    private double tasaInteresAnual;
+    private double interesesAnuales;
+    private double interesesMensuales;
+    private double interesesSemanales;
+    private double interesesDiarios;
 
     public CuentaAhorro(Cliente titular, double saldo) {
         super(titular, saldo);
-        this.tasaInteres = 0.90;
+        this.tasaInteresAnual = 0.0;
+        this.interesesAnuales = 0.0;
+        this.interesesMensuales = 0.0;
+        this.interesesSemanales = 0.0;
+        this.interesesDiarios = 0.0;
+    }
+
+    public void setTasaInteresAnual(double tasaInteresAnual) {
+        this.tasaInteresAnual = tasaInteresAnual;
     }
 
     @Override
     public void depositar(double monto) {
-        double intereses = monto * tasaInteres;
+        double intereses = monto * tasaInteresAnual / 100;
         double montoFinal = monto + intereses;
         setSaldo(getSaldo() + montoFinal);
     }
 
+    public void agregarIntereses() {
+        interesesAnuales += getSaldo() * tasaInteresAnual / 100;
+        interesesMensuales += getSaldo() * tasaInteresAnual / 12 / 100;
+        interesesSemanales += getSaldo() * tasaInteresAnual / 52 / 100;
+        interesesDiarios += getSaldo() * tasaInteresAnual / 365 / 100;
+    }
+
     @Override
     public boolean retirar(double monto) {
-        if (monto <= getSaldo()) {
-            setSaldo(getSaldo() - monto);
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
-    public void calcularInteres() {
+    public double getTasaInteresAnual() {
+        return tasaInteresAnual;
     }
 
     @Override
-    public void eliminarCuenta(List<CuentaBancaria> cuentas, String numeroCuenta) {
-        cuentas.removeIf(cuenta -> cuenta.getNumero().equals(numeroCuenta));
+    public void calcularInteresAnual() {
+        interesesAnuales += getSaldo() * tasaInteresAnual / 100;
     }
 
-    public void agregarIntereses() {
-        double intereses = getSaldo() * tasaInteres / 100;
-        depositar(intereses);
+    @Override
+    public void calcularInteresMensual() {
+        double tasaInteresMensual = tasaInteresAnual / 12;
+        interesesMensuales += getSaldo() * tasaInteresMensual / 100;
     }
 
-    public double getTasaInteres() {
-        return tasaInteres;
+    @Override
+    public void calcularInteresSemanal() {
+        double tasaInteresSemanal = tasaInteresAnual / 52;
+        interesesSemanales += getSaldo() * tasaInteresSemanal / 100;
+    }
+
+    @Override
+    public void calcularInteresDiario() {
+        double tasaInteresDiario = tasaInteresAnual / 365;
+        interesesDiarios += getSaldo() * tasaInteresDiario / 100;
+    }
+
+    @Override
+    public double getInteresesAnuales() {
+        return interesesAnuales;
+    }
+
+    @Override
+    public double getInteresesMensuales() {
+        return interesesMensuales;
+    }
+
+    @Override
+    public double getInteresesSemanales() {
+        return interesesSemanales;
+    }
+
+    @Override
+    public double getInteresesDiarios() {
+        return interesesDiarios;
     }
 }
-
-

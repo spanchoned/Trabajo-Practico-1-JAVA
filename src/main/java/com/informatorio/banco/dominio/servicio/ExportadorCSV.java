@@ -37,9 +37,9 @@ public class ExportadorCSV {
                         .append('\n');
             }
 
-            System.out.println("Exportación a CSV exitosa.");
+            System.out.println("Se exporto exitosamente.");
         } catch (IOException e) {
-            System.out.println("Error al exportar a CSV: " + e.getMessage());
+            System.out.println("Error al exportar: " + e.getMessage());
         }
     }
     public static void exportarCuentasCSV() {

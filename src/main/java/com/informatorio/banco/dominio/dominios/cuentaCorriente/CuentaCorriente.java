@@ -1,28 +1,23 @@
 package com.informatorio.banco.dominio.dominios.cuentaCorriente;
+
 import com.informatorio.banco.dominio.dominios.cliente.Cliente;
 import com.informatorio.banco.dominio.dominios.cuentaBancaria.CuentaBancaria;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class CuentaCorriente extends CuentaBancaria {
     private double limiteSobregiro;
-
+    private double interesesAnuales;
 
     public CuentaCorriente(Cliente titular, double saldo, double limiteSobregiro) {
         super(titular, saldo);
         this.limiteSobregiro = limiteSobregiro;
+        this.interesesAnuales = 0.0;
     }
 
-    public double getLimiteSobreGiro() {
+    public double getLimiteSobregiro() {
         return limiteSobregiro;
     }
-    public CuentaCorriente abrirCuentaCorriente(Cliente cliente) {
-        CuentaCorriente cuentaCorriente = new CuentaCorriente(cliente, 1000.0, 500.0);
-        cliente.agregarCuenta(cuentaCorriente);
-        return cuentaCorriente;
-    }
-
     @Override
     public void depositar(double monto) {
         if (monto > 0) {
@@ -30,7 +25,6 @@ public class CuentaCorriente extends CuentaBancaria {
         }
     }
 
-    @Override
     public boolean retirar(double monto) {
         double saldoDisponible = getSaldo() + limiteSobregiro;
         if (monto <= saldoDisponible) {
@@ -42,23 +36,54 @@ public class CuentaCorriente extends CuentaBancaria {
     }
 
     @Override
-    public void eliminarCuenta(List<CuentaBancaria> cuentas, String numeroCuenta) {
-        cuentas.removeIf(cuenta -> cuenta.getNumero().equals(numeroCuenta));
+    public void calcularInteresAnual() {
+        double intereses = getSaldo() * getTasaInteresAnual() / 100;
+        depositar(intereses);
     }
 
     @Override
-    public void calcularInteres() {
-
+    public void calcularInteresMensual() {
     }
 
+    @Override
+    public void calcularInteresSemanal() {
+    }
+
+    @Override
+    public void calcularInteresDiario() {
+    }
+
+    @Override
+    public double getTasaInteresAnual() {
+        return 0.0;
+    }
+
+    @Override
+    public double getInteresesAnuales() {
+        return interesesAnuales;
+    }
+
+    @Override
+    public double getInteresesMensuales() {
+        return 0.0;
+    }
+
+    @Override
+    public double getInteresesSemanales() {
+        return 0.0;
+    }
+
+    @Override
+    public double getInteresesDiarios() {
+        return 0.0;
+    }
+
+    public double calcularLimiteSobregiro(double montoInicial) {
+        return 0.9 * montoInicial;
+    }
     public double obtenerMontoLimiteSobregiro() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese el límite de sobregiro para la cuenta corriente: ");
-        return scanner.nextDouble();
+        return limiteSobregiro;
     }
 
-    public void agregarCuenta(CuentaCorriente cuentaCorriente, Cliente cliente) {
-        cliente.agregarCuenta(cuentaCorriente);
-    }
+
 }
-

@@ -38,40 +38,37 @@ public class Menu {
                     clienteServicio.ofrecerServicios();
                     break;
                 case 3:
-                    ExportadorCSV.exportarCuentasCSV();
-                    break;
-                case 4:
                     System.out.println("Nos vemos pronto");
                     break;
                 default:
-                    System.out.println("Opción no válida. Intente nuevamente.");
+                    System.out.println("Opción no válida. Intente otra vez.");
             }
-        } while (opcion != 4);
+            if (opcion == 3) {
+                break;
+            }
+        } while (true);
     }
 
     private static void mostrarMenu() {
-        System.out.println("*** Sistema Bancario del informatorio ***");
+        System.out.println("___Sistema Bancario del informatorio___");
         System.out.println("1. Registrar Cliente");
         System.out.println("2. Ofrecer Servicios");
-        System.out.println("3. Exportar Cuentas a CSV");
-        System.out.println("4. Salir");
+        System.out.println("3. Salir");
         System.out.print("Ingrese la opción: ");
     }
 
     private static int obtenerOpcion() {
         while (true) {
-            String entrada = scanner.next().toLowerCase();
+            String entrada = scanner.nextLine().toLowerCase();
 
             if (entrada.equals("1") || entrada.equals("registrar") || entrada.equals("cliente")) {
                 return 1;
             } else if (entrada.equals("2") || entrada.equals("ofrecer") || entrada.equals("servicios")) {
                 return 2;
-            } else if (entrada.equals("3") || entrada.equals("exportar") || entrada.equals("csv")) {
+            } else if (entrada.equals("3") || entrada.equals("salir")) {
                 return 3;
-            } else if (entrada.equals("4") || entrada.equals("salir")) {
-                return 4;
             } else {
-                System.out.println("Opción no válida. Intente nuevamente.");
+                System.out.println("Opción no válida. Intente otra vez.");
             }
         }
     }
@@ -79,12 +76,11 @@ public class Menu {
     private static void registrarCliente() {
         System.out.print("Ingrese su nombre por favor: ");
         String nombre = scanner.nextLine();
-        scanner.nextLine();
+
         System.out.print("Ahora su dirección: ");
         String direccion = scanner.nextLine();
-        System.out.print("Ingrese su número único: ");
-        String numeroUnico = scanner.nextLine();
-        Cliente cliente = new Cliente(numeroUnico, nombre, direccion);
+
+        Cliente cliente = new Cliente(nombre, direccion);
         banco.registrarCliente(cliente);
 
         System.out.println("\nSu información:");
@@ -95,7 +91,7 @@ public class Menu {
 
         System.out.print("Ingrese su monto inicial: ");
         double montoInicial = scanner.nextDouble();
-        scanner.nextLine();
+        scanner.nextLine(); // Limpiar el buffer después de nextDouble()
         cliente.abrirCuentas(montoInicial, tipoCuenta, banco);
 
         while (true) {
@@ -107,6 +103,7 @@ public class Menu {
                         "5. Exportar CSV\n" +
                         "6. Eliminar Cuenta\n" +
                         "7. Agregar Intereses\n" +
+                        "8. Calcular Intereses\n" +
                         "Ingrese el número o letra correspondiente a la opción:");
 
                 String opcion = scanner.nextLine();
@@ -124,12 +121,12 @@ public class Menu {
                             if (cuenta instanceof CuentaAhorro) {
                                 CuentaAhorro cuentaAhorro = (CuentaAhorro) cuenta;
                                 System.out.println("Tipo: Cuenta de Ahorro");
-                                System.out.println("Tasa de interés: " + cuentaAhorro.getTasaInteres());
+                                System.out.println("Tasa de interés: " + cuentaAhorro.getTasaInteresAnual());
                                 System.out.println("Descripción de C/ de Ahorro: Las cuentas de ahorro pagan intereses a una tasa específica.");
                             } else if (cuenta instanceof CuentaCorriente) {
                                 CuentaCorriente cuentaCorriente = (CuentaCorriente) cuenta;
                                 System.out.println("Tipo: Cuenta Corriente");
-                                System.out.println("Límite de sobregiro: " + cuentaCorriente.getLimiteSobreGiro());
+                                System.out.println("Límite de sobregiro: " + cuentaCorriente.getLimiteSobregiro());
                                 System.out.println("Descripción de C/ Corriente: Las cuentas corrientes pueden tener un límite de sobregiro y deben manejar retiros que excedan el saldo disponible.");
                             } else {
                                 System.out.println("Tipo de cuenta sin detalles.");
@@ -179,13 +176,18 @@ public class Menu {
                     case "6", "eliminar cuenta":
                         System.out.print("Ingrese el número de cuenta que desea eliminar: ");
                         String numeroCuentaEliminar = scanner.nextLine();
-                        cliente.eliminarCuenta(numeroCuentaEliminar, banco);
+                        cliente.eliminarCuenta(numeroCuentaEliminar);
                         System.out.println("Cuenta eliminada, gracias por usar la App");
                         break;
 
                     case "7", "agregar intereses":
                         CuentaBancaria.agregarIntereses(cliente);
                         System.out.println("Intereses agregados con éxito.");
+                        break;
+
+                    case "8", "calcular intereses":
+                        cliente.calcularIntereses();
+                        System.out.println("Intereses calculados con éxito.");
                         break;
 
                     default:

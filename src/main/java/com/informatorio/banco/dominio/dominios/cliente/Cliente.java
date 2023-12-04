@@ -17,15 +17,13 @@ public class Cliente {
     private String numeroUnico;
 
 
-    public Cliente(String nombre, String direccion, String s) {
+
+    public Cliente(String nombre, String direccion) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.cuentas = new ArrayList<>();
-        this.numeroUnico = generarNumeroUnico(nombre);
-    }
+        this.numeroUnico = generarNumeroUnico();
 
-    private String generarNumeroUnico(String nombre) {
-        return java.util.UUID.nameUUIDFromBytes(nombre.getBytes()).toString();
     }
 
     public Map<String, String> obtenerDatosComoMap() {
@@ -57,15 +55,20 @@ public class Cliente {
 
     public void abrirCuentas(double montoInicial, String tipoCuenta, Banco banco) {
         if (tipoCuenta.equalsIgnoreCase("Ahorro")) {
-            CuentaAhorro cuentaAhorro = abrirCuentaAhorro(montoInicial);
+
+            CuentaAhorro cuentaAhorro = abrirCuentaAhorro(montoInicial, 0.70);
             banco.registrarCuenta(this, cuentaAhorro);
+
         } else if (tipoCuenta.equalsIgnoreCase("Corriente")) {
-            double montoLimiteSobregiro = new CuentaCorriente(this, 0, 0).obtenerMontoLimiteSobregiro();
+            double montoLimiteSobregiro = new CuentaCorriente(this, 0, 0)
+                    .calcularLimiteSobregiro(montoInicial);
             CuentaCorriente cuentaCorriente = abrirCuentaCorriente(montoInicial, montoLimiteSobregiro);
             banco.registrarCuenta(this, cuentaCorriente);
+
         } else if (tipoCuenta.equalsIgnoreCase("Ambas")) {
             double montoLimiteSobregiro = new CuentaCorriente(this, 0, 0).obtenerMontoLimiteSobregiro();
-            CuentaAhorro cuentaAhorro = abrirCuentaAhorro(montoInicial);
+
+            CuentaAhorro cuentaAhorro = abrirCuentaAhorro(montoInicial, 0.70);
             CuentaCorriente cuentaCorriente = abrirCuentaCorriente(montoInicial, montoLimiteSobregiro);
             banco.registrarCuenta(this, cuentaAhorro);
             banco.registrarCuenta(this, cuentaCorriente);
@@ -73,10 +76,42 @@ public class Cliente {
             System.out.println("Tipo de cuenta no válido.");
         }
     }
-    public CuentaAhorro abrirCuentaAhorro(double montoInicial) {
+
+
+    public CuentaAhorro abrirCuentaAhorro(double montoInicial, double tasaInteres) {
         CuentaAhorro cuentaAhorro = new CuentaAhorro(this, montoInicial);
-        cuentas.add(cuentaAhorro);
+        cuentaAhorro.setTasaInteresAnual(tasaInteres);
+        agregarCuenta(cuentaAhorro);
         return cuentaAhorro;
+    }
+
+
+    public void calcularIntereses() {
+        double interesesAnuales = 0.0;
+        double interesesMensuales = 0.0;
+        double interesesSemanales = 0.0;
+        double interesesDiarios = 0.0;
+
+        for (CuentaBancaria cuenta : getCuentas()) {
+            cuenta.calcularInteresAnual();
+            cuenta.calcularInteresMensual();
+            cuenta.calcularInteresSemanal();
+            cuenta.calcularInteresDiario();
+
+            if (cuenta instanceof CuentaAhorro) {
+                CuentaAhorro cuentaAhorro = (CuentaAhorro) cuenta;
+                interesesAnuales += cuentaAhorro.getInteresesAnuales();
+                interesesMensuales += cuentaAhorro.getInteresesMensuales();
+                interesesSemanales += cuentaAhorro.getInteresesSemanales();
+                interesesDiarios += cuentaAhorro.getInteresesDiarios();
+            }
+        }
+
+        System.out.println("Intereses acumulados:");
+        System.out.println("Anuales: " + interesesAnuales);
+        System.out.println("Mensuales: " + interesesMensuales);
+        System.out.println("Semanales: " + interesesSemanales);
+        System.out.println("Diarios: " + interesesDiarios);
     }
 
     public CuentaCorriente abrirCuentaCorriente(double montoInicial, double montoLimiteSobregiro) {
@@ -85,24 +120,10 @@ public class Cliente {
         return cuentaCorriente;
     }
 
-    public void eliminarCuenta(String numeroCuenta, Banco banco) {
-        CuentaBancaria cuentaAEliminar = null;
-
-        for (CuentaBancaria cuenta : cuentas) {
-            if (cuenta.getNumero().equals(numeroCuenta)) {
-                cuentaAEliminar = cuenta;
-                break;
-            }
-        }
-
-        if (cuentaAEliminar != null) {
-            cuentas.remove(cuentaAEliminar);
-            banco.eliminarCuentaOrdenada(cuentaAEliminar);
-            System.out.println("Cuenta eliminada con éxito.");
-        } else {
-            System.out.println("La cuenta con el número " + numeroCuenta + " no existe para este cliente.");
-        }
+    public void eliminarCuenta(String numeroCuenta) {
+        cuentas.removeIf(cuenta -> cuenta.getNumero().equals(numeroCuenta));
     }
+
     public void mostrarInformacion() {
         System.out.println("Información del cliente:");
         System.out.println("Nombre: " + this.nombre);
@@ -113,10 +134,13 @@ public class Cliente {
         return cuentas.stream().mapToDouble(CuentaBancaria::consultarSaldo).sum();
     }
 
-    /*public String getNumeroUnico() {
-        return java.util.UUID.randomUUID().toString();
-    }*/
     public String getNumeroUnico() {
-        return this.numeroUnico;
+        return numeroUnico;
     }
+    private String generarNumeroUnico() {
+        return java.util.UUID.nameUUIDFromBytes(nombre.getBytes()).toString();
+    }
+
+
+
 }
